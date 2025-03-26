@@ -1,0 +1,482 @@
+:root {
+    --primary-color: #3366cc;
+    --primary-light: #e6f0ff;
+    --primary-dark: #254e9e;
+    --secondary-color: #f8f9fa;
+    --text-color: #333;
+    --border-color: #ddd;
+    --error-color: #dc3545;
+    --success-color: #28a745;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: white;
+    padding: 20px 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.inje-logo {
+    height: 40px;
+    border-radius: 4px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.subtitle {
+    font-weight: 500;
+    color: #666;
+}
+
+main {
+    padding: 40px 0;
+}
+
+.resume-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (max-width: 992px) {
+    .resume-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.card-header {
+    padding: 20px;
+    background-color: var(--primary-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.card-subtitle {
+    color: #666;
+}
+
+.card-body {
+    padding: 24px;
+}
+
+.form-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title svg {
+    width: 20px;
+    height: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    min-height: 250px;
+    resize: vertical;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(51, 102, 204, 0.1);
+}
+
+.action-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-add {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.btn-add:hover {
+    background-color: #e9ecef;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 14px 28px;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.coaching-result {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.result-content {
+    flex-grow: 1;
+    padding: 24px;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 16px;
+    overflow-y: auto;
+    max-height: 600px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    line-height: 1.7;
+}
+
+.result-content.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-state svg {
+    color: #d0d0d0;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    color: #666;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.empty-state p {
+    color: #888;
+    max-width: 300px;
+    line-height: 1.6;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    gap: 24px;
+    padding: 40px 20px;
+}
+
+.loading p {
+    color: #666;
+    font-weight: 500;
+    text-align: center;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(51, 102, 204, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 10px rgba(51, 102, 204, 0.1);
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.back-btn {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}
+
+/* 자기소개서 분석 결과 스타일 */
+.feedback-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ebf5ff;
+    color: #0070f3;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.feedback-tag.negative {
+    background-color: #ffebee;
+    color: #e53935;
+}
+
+.feedback-tag.positive {
+    background-color: #e8f5e9;
+    color: #43a047;
+}
+
+.feedback-highlight {
+    background-color: rgba(255, 213, 79, 0.25);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.analysis-section {
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.analysis-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.analysis-title {
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+    font-size: 1.25rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eef2f7;
+}
+
+.point-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+.point-list li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.point-list li:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.point-list.strengths li:before {
+    background-color: #34c759;
+}
+
+.point-list.weaknesses li:before {
+    background-color: #ff3b30;
+}
+
+.point-list.strengths {
+    background-color: rgba(52, 199, 89, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    border-left: 4px solid #34c759;
+}
+
+.point-list.weaknesses {
+    background-color: rgba(255, 59, 48, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    border-left: 4px solid #ff3b30;
+}
+
+.revised-version {
+    background-color: #f8f9fd;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+    margin-top: 16px;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.revised-version::before {
+    content: "개선된 자기소개서";
+    display: block;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.character-count {
+    text-align: right;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 코칭 옵션 스타일 */
+.coaching-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px 16px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #555;
+    border: 1px solid #eaeaea;
+}
+
+.option-label:hover {
+    background-color: #e9ecef;
+    border-color: #d0d0d0;
+}
+
+.option-label input {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.option-label input:checked + span {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* 지원 분야 선택 스타일 */
+.field-container {
+    margin-bottom: 16px;
+}
+
+.select-field {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: white;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.select-field:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(51, 102, 204, 0.1);
+}

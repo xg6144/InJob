@@ -1,0 +1,897 @@
+:root {
+    --primary-color: #3366cc;
+    --primary-light: #e6f0ff;
+    --primary-dark: #254e9e;
+    --secondary-color: #f8f9fa;
+    --text-color: #333;
+    --border-color: #ddd;
+    --error-color: #dc3545;
+    --success-color: #28a745;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+    --interviewer-color: #e6f0ff;
+    --user-color: #f0f7e6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: white;
+    padding: 20px 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.inje-logo {
+    height: 40px;
+    border-radius: 4px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.subtitle {
+    font-weight: 500;
+    color: #666;
+}
+
+main {
+    padding: 40px 0;
+}
+
+.interview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (max-width: 992px) {
+    .interview-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    height: 100%;
+}
+
+.card-header {
+    padding: 20px;
+    background-color: var(--primary-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.card-subtitle {
+    color: #666;
+}
+
+.card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 97px); /* 헤더 높이를 제외한 높이 */
+}
+
+.form-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 모의 면접 옵션 스타일 */
+.field-container {
+    margin-bottom: 16px;
+}
+
+.select-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: white;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.select-field:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(51, 102, 204, 0.1);
+}
+
+.interview-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.option-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 16px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.option-label:hover {
+    background-color: #e9ecef;
+    border-color: #ccc;
+}
+
+.option-label input[type="radio"] {
+    margin-right: 8px;
+    accent-color: var(--primary-color);
+}
+
+.option-label input[type="radio"]:checked + span {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.option-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 4px;
+    margin-left: 20px;
+}
+
+.time-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.time-option {
+    flex: 1;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    border-radius: 6px;
+    transition: var(--transition);
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.time-option:hover {
+    background-color: #e9ecef;
+    border-color: #ccc;
+}
+
+.time-option input[type="radio"] {
+    display: none;
+}
+
+.time-option input[type="radio"]:checked + span {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.time-option input[type="radio"]:checked ~ .time-option {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+}
+
+.additional-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px 16px;
+    background-color: var(--secondary-color);
+    border-radius: 6px;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    border: 1px solid var(--border-color);
+}
+
+.checkbox-option:hover {
+    background-color: #e9ecef;
+}
+
+.checkbox-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.action-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.btn-add:hover {
+    background-color: #e9ecef;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 14px 28px;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.action-btn {
+    font-weight: 600;
+}
+
+.action-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 면접 대화 영역 */
+.interview-result {
+    display: flex;
+    flex-direction: column;
+}
+
+.result-content {
+    flex-grow: 1;
+    padding: 24px;
+    background-color: white;
+    border-radius: 8px;
+    overflow-y: auto;
+    max-height: 600px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+}
+
+.result-content.empty {
+    justify-content: center;
+    align-items: center;
+    color: #888;
+    text-align: center;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.empty-state svg {
+    color: #d0d0d0;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    color: #666;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.empty-state p {
+    color: #888;
+    max-width: 300px;
+    line-height: 1.6;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    gap: 24px;
+}
+
+.loading p {
+    color: #666;
+    font-weight: 500;
+    text-align: center;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(51, 102, 204, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 10px rgba(51, 102, 204, 0.1);
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 면접 활성화 영역 */
+.interview-active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.type-option {
+    position: relative;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    background-color: white;
+}
+
+.type-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.type-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.type-content {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.type-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.type-header svg {
+    width: 22px;
+    height: 22px;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+.type-header span {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.type-option p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* 선택된 옵션 스타일 */
+.type-option input[type="radio"]:checked + .type-content {
+    background-color: #f0f7ff;
+}
+
+.type-option input[type="radio"]:checked + .type-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--primary-color);
+}
+
+.type-option input[type="radio"]:checked + .type-content .type-header svg {
+    color: var(--primary-color);
+}
+
+.type-option input[type="radio"]:checked + .type-content .type-header span {
+    color: var(--primary-color);
+}
+
+.type-option input[type="radio"]:focus + .type-content {
+    outline: 2px solid var(--primary-light);
+}
+
+.interview-type-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.interview-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.message {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.interviewer-message .message-content {
+    background-color: var(--interviewer-color);
+    border-radius: 0 12px 12px 12px;
+}
+
+.user-message {
+    flex-direction: row-reverse;
+}
+
+.user-message .message-content {
+    background-color: var(--user-color);
+    border-radius: 12px 0 12px 12px;
+}
+
+.message-avatar {
+    width: 36px;
+    height: 36px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.message-avatar svg {
+    width: 20px;
+    height: 20px;
+    color: #666;
+}
+
+.message-content {
+    padding: 12px 16px;
+    max-width: 80%;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.message-sender {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    color: var(--primary-dark);
+}
+
+.user-message .message-sender {
+    color: #4d7c0f;
+}
+
+.message-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.message-feedback {
+    align-self: center;
+    background-color: #fff8e6;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 8px 0;
+    border-left: 3px solid #ffc107;
+    max-width: 90%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-header {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: #856404;
+}
+
+.feedback-content {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.message-loading {
+    align-self: flex-start;
+    margin-left: 48px;
+    margin-top: -8px;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+    animation: typingAnimation 1.5s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingAnimation {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.message-error {
+    align-self: center;
+    color: var(--error-color);
+    background-color: #fff0f0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-size: 0.9rem;
+}
+
+.interview-input {
+    display: flex;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 16px;
+}
+
+.interview-input textarea {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    resize: none;
+    height: 80px;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.interview-input textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(51, 102, 204, 0.1);
+}
+
+.interview-input .btn-primary {
+    padding: 10px;
+    height: 50px;
+    align-self: flex-end;
+}
+
+.interview-input .btn-primary svg {
+    width: 24px;
+    height: 24px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.back-btn {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}
+
+/* 타이머 스타일 */
+.interview-timer {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.timer-display {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.timer-warning {
+    color: #e67e22;
+    font-weight: 600;
+}
+
+.timer-ended {
+    color: var(--error-color);
+    font-weight: 600;
+}
+
+/* 면접 종료 버튼 */
+.end-interview-container {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-color);
+    margin-bottom: 16px;
+}
+
+#end-interview-btn {
+    background-color: #f1f1f1;
+    color: #555;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#end-interview-btn:hover {
+    background-color: #e9e9e9;
+    color: var(--error-color);
+}
+
+#end-interview-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* 면접 결과 요약 */
+.interview-summary {
+    padding: 16px;
+}
+
+/* 면접 결과 요약 마크다운 스타일 */
+.summary-content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* 헤딩 스타일 */
+.summary-content h1 {
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.summary-content h2 {
+    font-size: 1.3rem;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+}
+
+.summary-content h3 {
+    font-size: 1.15rem;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+/* 강조 텍스트 */
+.summary-content strong {
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+.summary-content em {
+    font-style: italic;
+    color: #555;
+}
+
+/* 목록 스타일 */
+.summary-content ul, 
+.summary-content ol {
+    margin-bottom: 16px;
+    padding-left: 24px;
+}
+
+.summary-content li {
+    margin-bottom: 8px;
+}
+
+.summary-content li strong {
+    display: inline-block;
+    margin-bottom: 2px;
+}
+
+/* 구분선 */
+.summary-content hr {
+    height: 1px;
+    background-color: #eee;
+    border: none;
+    margin: 24px 0;
+}
+
+/* 단락 */
+.summary-content p {
+    margin-bottom: 16px;
+}
+
+.summary-content p:last-child {
+    margin-bottom: 0;
+}
+
+.interview-summary h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.summary-content {
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+.summary-stats {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#restart-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+#restart-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+    .interview-options {
+        grid-template-columns: 1fr;
+    }
+
+    .interview-type-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .time-options {
+        flex-wrap: wrap;
+    }
+    
+    .time-option {
+        min-width: calc(50% - 5px);
+    }
+    
+    .additional-options {
+        flex-direction: column;
+    }
+    
+    .message-content {
+        max-width: 90%;
+    }
+}
