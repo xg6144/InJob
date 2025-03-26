@@ -7,6 +7,181 @@
     <title>인제대학교 InJob - 취업 준비 파트너</title>
     <link rel="stylesheet" href="/static/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 챗봇 위젯 스타일 */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #2057a7;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-button:hover {
+            background-color: #154285;
+            transform: scale(1.05);
+        }
+
+        .chatbot-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        .chatbot-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .chatbot-header {
+            padding: 16px;
+            background-color: #2057a7;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 18px;
+            max-width: 80%;
+            word-break: break-word;
+        }
+
+        .message.bot {
+            background-color: #e6f0ff;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user {
+            background-color: #2057a7;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chatbot-input {
+            padding: 12px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 8px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .chatbot-input input:focus {
+            border-color: #2057a7;
+        }
+
+        .send-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2057a7;
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .send-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .send-button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* 반응형 조정 */
+        @media (max-width: 480px) {
+            .chatbot-container {
+                width: calc(100% - 40px);
+                height: 400px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -18,7 +193,8 @@
                     <div class="logo">InJob</div>
                 </div>
                 <a href="/login" class="login-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="login-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="login-icon">
                         <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
                         <polyline points="10 17 15 12 10 7"></polyline>
                         <line x1="15" y1="12" x2="3" y2="12"></line>
@@ -54,7 +230,9 @@
                     <a href="/english-tutor" class="feature-link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
                         </svg>
                         <span>InLingo</span>
                     </a>
@@ -90,7 +268,7 @@
         </section>
 
         <section class="content-section">
-            <div class="container">            
+            <div class="container">
                 <div class="info-grid">
                     <div class="info-card">
                         <h3>최신 공지사항</h3>
@@ -101,7 +279,7 @@
                             <li><a href="#">취업 준비 멘토링 프로그램 모집</a> <span class="date">2025.02.28</span></li>
                         </ul>
                     </div>
-                    
+
                     <div class="info-card">
                         <h3>진행 중인 채용</h3>
                         <ul class="job-list">
@@ -116,11 +294,69 @@
         </section>
     </main>
 
+    <div class="chatbot-widget">
+        <button class="chatbot-button" id="chatbotButton">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chatbot-icon">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+                <path d="M9 14h6"></path>
+            </svg>
+        </button>
+        <div class="chatbot-container" id="chatbotContainer">
+            <div class="chatbot-header">
+                <h3>InJob 채팅 도우미</h3>
+                <button class="close-button" id="closeChatbot">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="chatbot-messages">
+                <div class="message bot">
+                    안녕하세요! InJob 도우미입니다. 무엇을 도와드릴까요?
+                </div>
+                <!-- 추후 메시지가 여기에 추가됩니다 -->
+            </div>
+            <div class="chatbot-input">
+                <input type="text" placeholder="메시지를 입력하세요..." disabled />
+                <button class="send-button" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p class="copyright">© 2025 인제대학교. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatbotButton = document.getElementById('chatbotButton');
+            const chatbotContainer = document.getElementById('chatbotContainer');
+            const closeChatbot = document.getElementById('closeChatbot');
+
+            if (chatbotButton && chatbotContainer && closeChatbot) {
+                chatbotButton.addEventListener('click', function () {
+                    chatbotContainer.classList.toggle('active');
+                });
+
+                closeChatbot.addEventListener('click', function () {
+                    chatbotContainer.classList.remove('active');
+                });
+            } else {
+                console.error('챗봇 요소를 찾을 수 없습니다.');
+            }
+        });
+    </script>
 </body>
 
 </html>
