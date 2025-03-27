@@ -479,6 +479,130 @@
                 flex-direction: column;
             }
         }
+
+        /* 기능 네비게이션 */
+        .features-navbar {
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .features-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .feature-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .feature-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .feature-link svg {
+            width: 28px;
+            height: 28px;
+            margin-bottom: 8px;
+            stroke: currentColor;
+        }
+
+        /* 드롭다운 메뉴 스타일 */
+        .feature-link-dropdown {
+            position: relative;
+        }
+
+        .feature-link-toggle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+            color: var(--text-color);
+        }
+
+        .feature-link-toggle:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .feature-link-toggle svg {
+            width: 28px;
+            height: 28px;
+            margin-bottom: 8px;
+            stroke: currentColor;
+        }
+
+        .dropdown-arrow {
+            width: 16px !important;
+            height: 16px !important;
+            margin-top: 6px !important;
+            margin-bottom: 0 !important;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-link-dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 8px;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            padding: 8px 0;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .feature-link-dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .dropdown-item svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            stroke: currentColor;
+        }
     </style>
 </head>
 
@@ -488,7 +612,7 @@
             <div class="header-content">
                 <div class="logo-container">
                     <img src="/static/inje_logo.jpg" alt="인제대학교 로고" class="inje-logo">
-                    <div class="logo">InJob</div>
+                    <div class="logo">인제대학교 AI Lab</div>
                 </div>
                 <a href="/login" class="login-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -525,6 +649,55 @@
                         </svg>
                         <span>모의 면접</span>
                     </a>
+                    <div class="feature-link-dropdown">
+                        <div class="feature-link-toggle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                            <span>일상 회화 학습</span>
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="/conversation/english" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                    </path>
+                                </svg>
+                                <span>영어 회화</span>
+                            </a>
+                            <a href="/conversation/japanese" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="12" r="6"></circle>
+                                </svg>
+                                <span>일본어 회화</span>
+                            </a>
+                            <a href="/conversation/chinese" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M18.5 2H5.5C3.6 2 2 3.6 2 5.5v13C2 20.4 3.6 22 5.5 22H16l6-6V5.5C22 3.6 20.4 2 18.5 2Z">
+                                    </path>
+                                    <polyline points="16 22 16 16 22 16"></polyline>
+                                </svg>
+                                <span>중국어 회화</span>
+                            </a>
+                        </div>
+                    </div>
                     <a href="/english-tutor" class="feature-link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -691,6 +864,9 @@
 
             // 로그인 모달 설정
             setupLoginModal();
+
+            // 드롭다운 메뉴 설정
+            setupDropdownMenu();
         });
 
         // 로그인 모달 관련 기능
@@ -766,6 +942,27 @@
                     hideLoginModal();
                 }
             });
+        }
+
+        // 드롭다운 메뉴 기능
+        function setupDropdownMenu() {
+            const dropdownToggle = document.querySelector('.feature-link-toggle');
+            const dropdown = document.querySelector('.feature-link-dropdown');
+
+            if (dropdownToggle && dropdown) {
+                // 토글 클릭 시 드롭다운 표시/숨김
+                dropdownToggle.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    dropdown.classList.toggle('active');
+                });
+
+                // 문서 클릭 시 드롭다운 닫기
+                document.addEventListener('click', function (event) {
+                    if (!dropdown.contains(event.target)) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            }
         }
     </script>
 </body>
