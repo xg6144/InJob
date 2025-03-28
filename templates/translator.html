@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InJob - 번역기</title>
+    <link rel="stylesheet" href="/static/translator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="/static/inje_logo.jpg" alt="인제대학교 로고" class="inje-logo">
+                    <div class="logo">InJob</div>
+                </div>
+                <div class="subtitle">번역기</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="translator-container">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">텍스트 번역</h2>
+                    <p class="card-subtitle">다양한 언어 간 번역을 지원합니다</p>
+                </div>
+                <div class="card-body">
+                    <form id="translator-form" method="post" onsubmit="translateText(event)">
+                        <div class="language-controls">
+                            <div class="language-select-container">
+                                <select id="source-language" name="source_language" class="select-field">
+                                    <option value="ko" selected>한국어</option>
+                                    <option value="en">영어</option>
+                                    <option value="ja">일본어</option>
+                                    <option value="zh">중국어</option>
+                                    <option value="fr">프랑스어</option>
+                                    <option value="es">스페인어</option>
+                                    <option value="de">독일어</option>
+                                    <option value="ru">러시아어</option>
+                                    <option value="vi">베트남어</option>
+                                </select>
+                            </div>
+
+                            <button type="button" id="swap-button" class="swap-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M7 16V4M7 4L3 8M7 4L11 8"></path>
+                                    <path d="M17 8v12m0 0 4-4m-4 4-4-4"></path>
+                                </svg>
+                            </button>
+
+                            <div class="language-select-container">
+                                <select id="target-language" name="target_language" class="select-field">
+                                    <option value="ko">한국어</option>
+                                    <option value="en" selected>영어</option>
+                                    <option value="ja">일본어</option>
+                                    <option value="zh">중국어</option>
+                                    <option value="fr">프랑스어</option>
+                                    <option value="es">스페인어</option>
+                                    <option value="de">독일어</option>
+                                    <option value="ru">러시아어</option>
+                                    <option value="vi">베트남어</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="translation-boxes">
+                            <div class="translation-box">
+                                <div class="box-header">원문</div>
+                                <textarea id="source-text" name="source_text" placeholder="번역할 텍스트를 입력하세요"
+                                    required></textarea>
+                                <div class="text-controls">
+                                    <span id="source-char-count">0</span> / 5000
+                                    <button type="button" class="clear-button" id="clear-source">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                        지우기
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="translation-box">
+                                <div class="box-header">번역</div>
+                                <textarea id="target-text" name="target_text" placeholder="번역 결과가 여기에 표시됩니다"
+                                    readonly></textarea>
+                                <div class="text-controls">
+                                    <button type="button" class="copy-button" id="copy-target">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                        </svg>
+                                        복사
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="translation-options">
+                            <div class="options-title">추가 옵션</div>
+                            <div class="options-controls">
+                                <label class="option-label">
+                                    <input type="checkbox" name="formal" value="true">
+                                    <span>존댓말 사용</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="checkbox" name="preserve_formatting" value="true" checked>
+                                    <span>서식 유지</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="checkbox" name="technical" value="true">
+                                    <span>전문용어 중시</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>번역 중입니다...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="/" class="back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            홈으로 돌아가기
+        </a>
+    </footer>
+
+    <script>
+        // Debounce function to prevent too many translation requests
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                const context = this;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
+        }
+
+        // Character counter and auto-translation for source text
+        const sourceTextarea = document.getElementById('source-text');
+        const sourceCharCount = document.getElementById('source-char-count');
+
+        // Debounced translation function (translate after 500ms of no typing)
+        const debouncedTranslate = debounce(async () => {
+            const sourceText = sourceTextarea.value;
+            if (sourceText.trim()) {
+                await translateText();
+            }
+        }, 500);
+
+        sourceTextarea.addEventListener('input', function () {
+            const count = this.value.length;
+            sourceCharCount.textContent = count;
+
+            // Add visual feedback if approaching limit
+            if (count > 4500) {
+                sourceCharCount.style.color = '#dc3545';
+            } else {
+                sourceCharCount.style.color = '#333';
+            }
+
+            // Trigger auto-translation after typing stops
+            debouncedTranslate();
+        });
+
+        // Also trigger translation when language or options change
+        document.getElementById('source-language').addEventListener('change', debouncedTranslate);
+        document.getElementById('target-language').addEventListener('change', debouncedTranslate);
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', debouncedTranslate);
+        });
+
+        // Swap languages button
+        document.getElementById('swap-button').addEventListener('click', function () {
+            const sourceLanguage = document.getElementById('source-language');
+            const targetLanguage = document.getElementById('target-language');
+
+            // Swap the selected values
+            const temp = sourceLanguage.value;
+            sourceLanguage.value = targetLanguage.value;
+            targetLanguage.value = temp;
+
+            // If there's text in both areas, also swap the text
+            const sourceText = document.getElementById('source-text');
+            const targetText = document.getElementById('target-text');
+
+            if (sourceText.value && targetText.value) {
+                const tempText = sourceText.value;
+                sourceText.value = targetText.value;
+                targetText.value = tempText;
+                sourceCharCount.textContent = sourceText.value.length;
+
+                // Trigger translation after swapping
+                debouncedTranslate();
+            }
+        });
+
+        // Clear source text
+        document.getElementById('clear-source').addEventListener('click', function () {
+            document.getElementById('source-text').value = '';
+            document.getElementById('target-text').value = '';
+            sourceCharCount.textContent = '0';
+            sourceCharCount.style.color = '#333';
+        });
+
+        // Copy translated text
+        document.getElementById('copy-target').addEventListener('click', function () {
+            const targetText = document.getElementById('target-text');
+            targetText.select();
+            document.execCommand('copy');
+
+            // Visual feedback for copy
+            const originalText = this.innerHTML;
+            this.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" 
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+                    stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                복사됨
+            `;
+
+            setTimeout(() => {
+                this.innerHTML = originalText;
+            }, 2000);
+        });
+
+        // Handle translate function (no need for event parameter since we're not using form submission)
+        async function translateText() {
+            const sourceText = document.getElementById('source-text').value;
+            if (!sourceText.trim()) {
+                document.getElementById('target-text').value = '';
+                return; // Don't translate empty text
+            }
+
+            try {
+                // Get form values for the API request
+                const sourceLanguage = document.getElementById('source-language').value;
+                const targetLanguage = document.getElementById('target-language').value;
+                const formal = document.querySelector('input[name="formal"]').checked;
+                const preserveFormatting = document.querySelector('input[name="preserve_formatting"]').checked;
+                const technical = document.querySelector('input[name="technical"]').checked;
+
+                // Prepare form data for the API request
+                const formData = new FormData();
+                formData.append('source_text', sourceText);
+                formData.append('source_language', sourceLanguage);
+                formData.append('target_language', targetLanguage);
+                formData.append('formal', formal);
+                formData.append('preserve_formatting', preserveFormatting);
+                formData.append('technical', technical);
+
+                // Send request to our server-side API
+                const response = await fetch('/translator', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Process the API response
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        document.getElementById('target-text').value = data.translation;
+                    } else {
+                        throw new Error(data.message || '번역에 실패했습니다.');
+                    }
+                } else {
+                    throw new Error('서버 응답 오류');
+                }
+
+            } catch (error) {
+                console.error('Translation error:', error);
+                document.getElementById('target-text').value = '번역 중 오류가 발생했습니다. 다시 시도해주세요.';
+            }
+        }
+
+        // Modify form submission to prevent default and use our auto-translation instead
+        document.getElementById('translator-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            translateText();
+        });
+    </script>
+</body>
+
+</html>
